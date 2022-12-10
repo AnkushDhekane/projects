@@ -1,0 +1,132 @@
+p_rate = 103
+pp_rate = 95
+d_rate = 96
+dp_rate = 85
+p_stock = 230
+d_stock = 500
+p_cap = 10000
+d_cap = 50000
+pp = 0
+p_sale = 0
+d_sale = 0
+
+
+def petrol():
+    global p_stock, p_rate, p_sale, pp
+    chh = input("R for rupees,L for liters").upper()
+    if chh == 'R':
+        p_rs = float(input("how much Rs petrol do you want:"))
+        pp = p_rs / p_rate
+        if pp <= p_stock:
+            p_stock -= pp
+            p_sale += pp
+            print(pp, "liters petrol of Rs", p_rs, "available,please fill carefully")
+            print("Available stock ::>", int(p_stock))
+        else:
+            print("petrol not available")
+    elif chh == 'L':
+        p_lit = float(input("how many liters petrol do you want"))
+        pp = p_lit * p_rate
+        if p_lit <= p_stock:
+            p_stock -= p_lit
+            p_sale += p_lit
+            print(p_lit, "liters of petrol of Rs", pp, "available,fill carefully")
+            print("Available Stock::>", int(p_stock))
+        else:
+            print("petrol not available")
+
+
+def diesel():
+    global d_stock, d_rate, d_sale
+    chh = input("R for rupees, L for liters").upper()
+    if chh == 'R':
+        d_rs = float(input("how much Rs Diesel do you want:"))
+        dp = d_rs / d_rate
+        if dp <= d_stock:
+            d_stock -= dp
+            d_sale += dp
+            print(dp, "liters Diesel of Rs", d_rs, "available,please fill carefully")
+            print("Available stock ::>", int(d_stock))
+        else:
+            print("Diesel not available")
+    elif chh == 'L':
+        d_lit = float(input("how many liters Diesel do you want"))
+        dp = d_lit * d_rate
+        if d_lit <= d_stock:
+            d_stock -= d_lit
+            d_sale += d_lit
+            print(d_lit, "liters of Diesel of Rs", dp, "available,fill carefully")
+            print("Available Stock::>", int(d_stock))
+        else:
+            print("Diesel not available")
+
+
+def p_petrol():
+    global p_stock, p_cap, pp_rate
+    p_pur = int(input("how many liters of petrol you want to purchase"))
+    if p_pur <= (p_cap - p_stock):
+        print("we have capacity to make a stock,"
+              "amount required to purchase", (p_pur * pp_rate))
+        p_stock += p_pur
+        print("capacity to purchase Petrol:", (p_cap - p_stock))
+    else:
+        print("we dont have that much capacity to stock,our capacity is", (p_cap - p_stock))
+
+
+def p_diesel():
+    global d_stock, d_cap, dp_rate
+    d_pur = int(input("how many liters of Diesel you want to purchase"))
+    if d_pur <= (d_cap - d_stock):
+        print("we have capacity to make a stock,"
+              "amount required to purchase", (d_pur * dp_rate))
+        d_stock += d_pur
+        print("capacity to purchase Diesel:", (d_cap - d_stock))
+    else:
+        print("we dont have that much capacity to stock,our capacity is", (d_cap - d_stock))
+
+
+def account():
+    global p_stock, pp_rate, dp_rate, d_stock, p_sale, d_sale
+    print("Amount of capital required for purchase of Diesel:", (d_stock * dp_rate),
+          "Petrol:", (p_stock * pp_rate))
+    print("total sale of the day of Petrol:", p_sale, "of rupees", int((p_sale * p_rate)))
+    print("total sale of the day of Diesel:", d_sale, "of rupees", int((d_sale * d_rate)))
+    print("total profit from Petrol:", int(((p_sale * p_rate) - (p_sale * pp_rate))),
+          "and Diesel", int(((d_sale * d_rate) - (d_sale * dp_rate))))
+    print("total profit of the day",
+          int(((p_sale * p_rate) - (p_sale * pp_rate)) + ((d_sale * d_rate) - (d_sale * dp_rate))))
+
+
+while True:
+    print("----------------------------------------")
+    print("welcome to national fuel depot")
+    print("Available Stock of Petrol", int(p_stock), "liters,and Diesel", int(d_stock), "liters")
+    chhh = input("Enter choice: S for Sale,P for purchase,"
+                 "A for Account, E for exit").upper()
+    if chhh == 'S':
+        ch = int(input("for petrol press 1,for diesel 2,for exit 3"))
+        if ch == 1:
+            petrol()
+        elif ch == 2:
+            diesel()
+        elif ch == 3:
+            break
+        else:
+            print("enter valid choice")
+    elif chhh == "P":
+        ch = int(input("for petrol press 1,for diesel 2,for exit 3"))
+        if ch == 1:
+            p_petrol()
+        elif ch == 2:
+            p_diesel()
+        elif ch == 3:
+            break
+        else:
+            print("enter valid choice")
+    elif chhh == "A":
+        account()
+
+    elif chhh == "E":
+        exit()
+    else:
+        print("enter valid choice")
